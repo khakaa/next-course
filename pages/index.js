@@ -13,6 +13,7 @@ function HomePage(props) {
 }
 
 export async function getStaticProps() {
+  console.log("(Re-)Generating...");
   const filePath = path.join(process.cwd(), "data", "dummy-backend.json"); // 전체 프로젝트 디렉토리에서 시작하여 data/dummy-backend.json 경로 지정해줌
   const jsonData = await fs.readFile(filePath);
   const data = JSON.parse(jsonData);
@@ -21,6 +22,7 @@ export async function getStaticProps() {
     props: {
       products: data.products,
     },
+    revalidate: 10,
   };
 }
 
